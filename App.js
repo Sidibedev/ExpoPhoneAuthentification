@@ -1,14 +1,14 @@
-import * as React from 'react';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
-import { SplashScreen } from 'expo';
-import * as Font from 'expo-font';
-import { Ionicons } from '@expo/vector-icons';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import Auth from './screens/PhoneNumberScreen'
-import BottomTabNavigator from './navigation/BottomTabNavigator';
-import useLinking from './navigation/useLinking';
-import VerifyScreen from './screens/VerifyScreen';
+import * as React from "react";
+import { Platform, StatusBar, StyleSheet, View } from "react-native";
+import { SplashScreen } from "expo";
+import * as Font from "expo-font";
+import { Ionicons } from "@expo/vector-icons";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import PhoneNumberScreen from "./screens/PhoneNumberScreen";
+import BottomTabNavigator from "./navigation/BottomTabNavigator";
+import useLinking from "./navigation/useLinking";
+import VerifyScreen from "./screens/VerifyScreen";
 
 const Stack = createStackNavigator();
 
@@ -30,8 +30,8 @@ export default function App(props) {
         // Load fonts
         await Font.loadAsync({
           ...Ionicons.font,
-          'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
-          'muli': require('./assets/fonts/Muli-VariableFont_wght.ttf')
+          "space-mono": require("./assets/fonts/SpaceMono-Regular.ttf"),
+          muli: require("./assets/fonts/Muli-VariableFont_wght.ttf"),
         });
       } catch (e) {
         // We might want to provide this error information to an error reporting service
@@ -49,22 +49,20 @@ export default function App(props) {
     return null;
   } else {
     return (
-      <View style={styles.container}>
-        {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-        <NavigationContainer ref={containerRef} initialState={initialNavigationState}>
-          <Stack.Navigator>
-            <Stack.Screen name="phone" component={Auth} options={{headerShown:false}} />
-            <Stack.Screen name="verify" component={VerifyScreen} options={{headerShown:false}} />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </View>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="phone"
+            component={PhoneNumberScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="verify"
+            component={VerifyScreen}
+            options={{ headerShown: false }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-});
